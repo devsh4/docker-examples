@@ -1,4 +1,4 @@
-# Product service
+# Product details service
 # simple restful API
 from flask import Flask
 from flask_restful import Resource, Api
@@ -6,16 +6,16 @@ from flask_restful import Resource, Api
 app = Flask(__name__)
 api =  Api(app)
 
-class Product (Resource):
+class productDetails (Resource):
     def get(self):
         return {
-        'products': ['Ice-cream',
-                    'Chocolate',
-                    'Banana']
+        'productDetails': ['Vanilla',
+                    'Snickers',
+                    'Yellow']
         }
 
 # Add the resource to the api
-api.add_resource(Product,'/')
+api.add_resource(productDetails,'/')
 
 if __name__ == "__main__":
     # instantiate the app

@@ -1,0 +1,24 @@
+# docker-compose.yml basically is a good substitute for verbose commands which are normally executed on cmd for building / running containers
+# Run `docker-compose up` and everything will be built based on this file
+# version tag specifies the docker-compose file format to use
+version: '3.2'
+services:
+  sentimentalyzer:
+    # directories mentioned for 'build' tag are relative to docker-compose.yml
+    # 'build' tag needs the directories which have the respective Dockerfile required for building the image
+    # or you could use the 'image' tag
+    build: ../
+    environment:
+      # - to specify a list for the 'environment' tag
+      - PORT=8123
+  cypress:
+    image: "cypress/included:3.3.0"
+    # 'depends-on' tag makes sure the services required are built successfully 
+    depends_on:
+      - sentimentalyzer
+    environment:
+      - CYPRESS_baseUrl=http://sentimentalyzer:8123
+    working_dir: /e2e
+    volumes:
+      # to mount under folder /e2e on the container
+      - ./:/e2e
